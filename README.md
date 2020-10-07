@@ -12,4 +12,5 @@
 	
 	3. [NodeMcu ESP32 Development Board BLE+WIFI](http://parts-parts.co.kr/product/detail.html?product_no=793&cate_no=163&display_group=1)
 2. [아두이노 IDE에서 개발환경 만들기](https://deneb21.tistory.com/590)
-4. [TFT_eSPI 라이브러리](https://github.com/Bodmer/TFT_eSPI)
+3. [TFT_eSPI 라이브러리](https://github.com/Bodmer/TFT_eSPI)
+4. [외국 예제](https://arduino-er.blogspot.com/2020/06/esp32-devkitc-28inch-240x320-spi-tft.html)
