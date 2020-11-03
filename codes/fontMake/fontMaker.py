@@ -5,6 +5,8 @@ sourceFileName = "H01.FNT"
 outFileName = "fontSet.h"
 logFileName = "log.txt"
 
+def reverseByte(b):
+    return int(f'{b:08b}'[::-1],base=2)
 
 fontSource = open(sourceFileName, 'rb')
 
@@ -14,12 +16,7 @@ log = open(logFileName, 'w',encoding = 'utf8')
 syl = ['초성', '중성', '종성']
 sylCnt = [20, 22, 28]
 
-initStr = """\
-    #define Width 16
-    #define Height 16
-    
-    PROGMEM const unsigned char glyphs[][][][] = {
-"""
+initStr = "PROGMEM const unsigned char glyphs[3][8][28][32] = {\n"
 fontOut.write(initStr)
 
 for i in range(0,8*20 + 4*22 + 4*28): # 초성 8벌, 중성 4벌, 종성 4벌
@@ -43,10 +40,10 @@ for i in range(0,8*20 + 4*22 + 4*28): # 초성 8벌, 중성 4벌, 종성 4벌
     #      │ 3  │  있음    │ ㄱ ㅋ                      │
     #      │ 4  │  있음    │ ㄱ ㅋ 이외                 │
     # ─────┼────┼──────────┼────────────────────────────┤
-    # 중성 │ 1  │  없음    │ ㄱ ㅋ                      │
-    #      │ 2  │  없음    │ ㄱ ㅋ 이외                 │
-    #      │ 3  │  있음    │ ㄱ ㅋ                      │
-    #      │ 4  │  있음    │ ㄱ ㅋ 이외                 │
+    # 종성 │ 1  │  있음    │ ㅏ ㅑ ㅘ                   │
+    #      │ 2  │  있음    │ ㅓ ㅕ ㅚ ㅝ ㅟ ㅢ ㅣ       │
+    #      │ 3  │  있음    │ ㅐ ㅒ ㅔ ㅖ ㅙ ㅞ          │
+    #      │ 4  │  있음    │ ㅗ ㅛ ㅜ ㅠ ㅡ             │
     # ─────┴────┴──────────┴────────────────────────────┘
 
     #출력 파일 목표: char형 배열 glyphs를 만드는 코드. 
@@ -71,8 +68,9 @@ for i in range(0,8*20 + 4*22 + 4*28): # 초성 8벌, 중성 4벌, 종성 4벌
     curFontData = fontSource.read(32) # 한글은 16 * 16 크기의 glyph를 가짐.
     
     log.write(f'-{syl[sylType]},{lotType + 1} 벌,{order} 번째 문자.--------------\n')
-    for b in [curFontData[p] * 256 + curFontData[p + 1] for p in range(0, 32, 2)]:
-        log.write(f'{b:016b}\n'.replace('0','□ ').replace('1','■ '))
+    for j, b in enumerate([curFontData[p] * 256 + curFontData[p + 1] for p in range(0, 32, 2)]):
+        log.write(f'0x{curFontData[j*2]:02x} 0x{curFontData[j*2 + 1]:02x} : ' + f'{b:016b}\n'.replace('0','□ ').replace('1','■ '))
+
 
     if(i == 0 or i == 160 or i == 248): fontOut.write(f'\u007b // {syl[sylType]} 시작\n')
 
@@ -80,10 +78,10 @@ for i in range(0,8*20 + 4*22 + 4*28): # 초성 8벌, 중성 4벌, 종성 4벌
 
     fontOut.write('        {')
     for j in curFontData:
-        fontOut.write(f'0x{j:02x},')
+        fontOut.write(f'0x{reverseByte(j):02x},')
     fontOut.write(f'\u007d, //{syl[sylType]},{lotType + 1} 벌,{order} 번째 문자.\n')
 
-    if(i == 159 or i == 247 or i == 359): fontOut.write(f'    \u007d,{syl[sylType]} 끝\n')
+    if(i == 159 or i == 247 or i == 359): fontOut.write(f'    \u007d,//{syl[sylType]} 끝\n')
 
     if(order == sylCnt[sylType] - 1): fontOut.write('},\n')
 
