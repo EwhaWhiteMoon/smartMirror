@@ -1,8 +1,8 @@
 #sourceFileName = input("입력 파일 이름을 입력하세요...")
 #outFileName = input("출력 파일 이름을 입력하세요...")
 
-sourceFileName = "H01.FNT"
-outFileName = "fontSet.h"
+sourceFileName = "H04.FNT"
+outFileName = "fontSet2.h"
 logFileName = "log.txt"
 
 def reverseByte(b):

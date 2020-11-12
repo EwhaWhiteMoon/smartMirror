@@ -1,5 +1,5 @@
 #include <TFT_eSPI.h>
-#include "fontSet.h"
+#include "fontSet2.h"
 
 unsigned char cho[] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 3, 3, 1, 2, 4, 4, 4, 2, 1, 3, 0};
 unsigned char cho2[] = {0, 5, 5, 5, 5, 5, 5, 5, 5, 6, 7, 7, 7, 6, 6, 7, 7, 7, 6, 6, 7, 5};
