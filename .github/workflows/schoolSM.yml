@@ -19,4 +19,15 @@ jobs:
           cd ./codes/SMchecker
           npm ci
           npm start
-      - uses: stefanzweifel/git-auto-commit-action@v4
+          cd ..
+          cd ..
+      - name: Commit files # transfer the new html files back into the repository
+        run: |
+          git config --local user.name "suyasuyazzang"
+          git add ./codes/Smchecker
+          git commit -m "SchoolMeal Update"
+      - name: Push changes # push the output folder to your repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
