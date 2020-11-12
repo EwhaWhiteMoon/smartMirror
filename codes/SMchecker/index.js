@@ -22,7 +22,7 @@ axios.get(`https://search.naver.com/search.naver?query=${query}`).then(r =>{
     todaySM = menu.find(e => e.date == today)
     console.log(todaySM)
 
-    fs.writeFileSync('./dist/todaySM.txt',todaySM.list.join('\n'))
+    fs.writeFileSync('todaySM.txt',todaySM.list.join('\n'))
 }).catch(e => {
     console.log(e)
 })
