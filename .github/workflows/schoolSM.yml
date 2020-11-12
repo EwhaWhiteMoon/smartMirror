@@ -1,0 +1,22 @@
+name: SMUpdate
+
+on:
+  schedule:
+    - cron: '0 8/12 * * *'
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - name: build
+        run: |
+          cd cd ./codes/SMchecker
+          npm ci
+          npm start
+      - uses: stefanzweifel/git-auto-commit-action@v4
