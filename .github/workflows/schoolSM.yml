@@ -24,7 +24,7 @@ jobs:
       - name: Commit files # transfer the new html files back into the repository
         run: |
           git config --local user.name "suyasuyazzang"
-          git add ./codes/Smchecker
+          git add ./codes/SMchecker
           git commit -m "SchoolMeal Update"
       - name: Push changes # push the output folder to your repo
         uses: ad-m/github-push-action@master
