@@ -16,7 +16,7 @@ jobs:
           node-version: 12.x
       - name: build
         run: |
-          cd cd ./codes/SMchecker
+          cd ./codes/SMchecker
           npm ci
           npm start
       - uses: stefanzweifel/git-auto-commit-action@v4
